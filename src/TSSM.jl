@@ -2,6 +2,7 @@ module TSSM
 
 using Distributions
 using HypothesisTests
+import HypothesisTests.ksstats
 using LinearAlgebra
 using Random
 using Statistics
