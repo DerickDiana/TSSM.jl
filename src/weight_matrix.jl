@@ -4,7 +4,7 @@ mutable struct BlockBoostrapWeightMatrix <: WeightMatrix
     seed::Int64
     obs::Array{Float64, 1}
     block_size::Int64
-    n_bootstap::Int64
+    n_bootstrap::Int64
     weights::Array{Float64, 2}
 end
 function BlockBoostrapWeightMatrix(seed::Int64, obs::Array{Float64, 1},
@@ -13,8 +13,8 @@ function BlockBoostrapWeightMatrix(seed::Int64, obs::Array{Float64, 1},
     Random.seed!(seed)
     n = size(obs, 1)
     block_ind = 1:n-block_size+1
-    b_samples = Array{Float64,2}(undef, n, n_bootstap)
-    for i in 1:n_bootstap
+    b_samples = Array{Float64,2}(undef, n, n_bootstrap)
+    for i in 1:n_bootstrap
         b_samples[:,i] = obs[block_bootstrap_index(block_ind, n, block_size)]
     end
 
