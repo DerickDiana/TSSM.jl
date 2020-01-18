@@ -2,12 +2,12 @@ abstract type WeightMatrix end
 
 mutable struct BlockBoostrapWeightMatrix <: WeightMatrix
     seed::Int64
-    obs::Array{Float64,1}
+    obs::Array{Float64, 1}
     block_size::Int64
     n_bootstap::Int64
     weights::Array{Float64, 2}
 end
-function BlockBoostrapWeightMatrix(seed::Int64, obs::Array{Float64, 2},
+function BlockBoostrapWeightMatrix(seed::Int64, obs::Array{Float64, 1},
     block_size::Int64, n_bootstrap::Int64)
     # Step 1: Apply a Moving Block Bootstrap to the Measured Series
     Random.seed!(seed)
