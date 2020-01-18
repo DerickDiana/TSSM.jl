@@ -1,5 +1,15 @@
 module TSSM
 
-greet() = print("Hello World!")
+using Statistics
+using Distributions
+using HypothesisTests
+using Random
+using LinearAlgebra
 
-end # module
+include("weight_matrix.jl")
+include("summary_stats.jl")
+include("distance_measure.jl")
+
+export BlockBoostrapWeightMatrix, select_moments, weighted_moment_distance
+
+end
