@@ -1,10 +1,10 @@
 module TSSM
 
-using Statistics
 using Distributions
 using HypothesisTests
-using Random
 using LinearAlgebra
+using Random
+using Statistics
 
 include("weight_matrix.jl")
 include("summary_stats.jl")
