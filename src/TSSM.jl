@@ -11,6 +11,6 @@ include("weight_matrix.jl")
 include("summary_stats.jl")
 include("distance_measure.jl")
 
-export BlockBoostrapWeightMatrix, select_moments, weighted_moment_distance
+export BlockBootstrapWeightMatrix, select_moments, weighted_moment_distance
 
 end

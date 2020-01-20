@@ -1,13 +1,13 @@
 abstract type WeightMatrix end
 
-mutable struct BlockBoostrapWeightMatrix <: WeightMatrix
+mutable struct BlockBootstrapWeightMatrix <: WeightMatrix
     seed::Int64
     obs::Array{Float64, 1}
     block_size::Int64
     n_bootstrap::Int64
     weights::Array{Float64, 2}
 end
-function BlockBoostrapWeightMatrix(seed::Int64, obs::Array{Float64, 1},
+function BlockBootstrapWeightMatrix(seed::Int64, obs::Array{Float64, 1},
     block_size::Int64, n_bootstrap::Int64)
     # Step 1: Apply a Moving Block Bootstrap to the Measured Series
     Random.seed!(seed)
@@ -23,7 +23,7 @@ function BlockBoostrapWeightMatrix(seed::Int64, obs::Array{Float64, 1},
 
     # Step 3: Calculate Inverse Weight Matrix
     W = inv(cov(dist))
-    return BlockBoostrapWeightMatrix(seed, obs, block_size, n_bootstrap, W)
+    return BlockBootstrapWeightMatrix(seed, obs, block_size, n_bootstrap, W)
 end
 
 

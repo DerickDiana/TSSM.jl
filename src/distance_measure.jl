@@ -1,4 +1,4 @@
-function weighted_moment_distance(wm::BlockBoostrapWeightMatrix, sims)
+function weighted_moment_distance(wm::BlockBootstrapWeightMatrix, sims)
     observed_moments = select_moments(wm.obs)
 
     n_replications = size(sims, 2)
