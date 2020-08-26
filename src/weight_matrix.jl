@@ -7,23 +7,23 @@ mutable struct BlockBootstrapWeightMatrix <: WeightMatrix
     n_bootstrap::Int64
     weights::Array{Float64, 2}
 end
-function BlockBootstrapWeightMatrix(seed::Int64, obs::Array{Float64, 1},
+function BlockBootstrapWeightMatrix(seed::Int64, log_returns::Array{Float64, 1},
     block_size::Int64, n_bootstrap::Int64)
-    # Step 1: Apply a Moving Block Bootstrap to the Measured Series
+    # Step 1: Apply a Moving Block Bootstrap to the Log Return Path
     Random.seed!(seed)
-    n = size(obs, 1)
+    n = size(log_returns, 1)
     block_ind = 1:n-block_size+1
     b_samples = Array{Float64,2}(undef, n, n_bootstrap)
     for i in 1:n_bootstrap
-        b_samples[:,i] = obs[block_bootstrap_index(block_ind, n, block_size)]
+        b_samples[:,i] = log_returns[block_bootstrap_index(block_ind, n, block_size)]
     end
 
-    # Step 2: Calculate Distributions for Each Moment and Test Statistic
-    dist = get_summary_stats(b_samples, obs)
+    # Step 2: Calculate Summary Statistics for the Bootstrapped Samples
+    dist = get_summary_stats(b_samples, log_returns)
 
     # Step 3: Calculate Inverse Weight Matrix
     W = inv(cov(dist))
-    return BlockBootstrapWeightMatrix(seed, obs, block_size, n_bootstrap, W)
+    return BlockBootstrapWeightMatrix(seed, log_returns, block_size, n_bootstrap, W)
 end
 
 
