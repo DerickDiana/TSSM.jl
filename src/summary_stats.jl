@@ -79,18 +79,18 @@ function generalized_hurts_exp(obs)
     return H
 end
 
-function get_summary_stats(simualted_obs, obs)
+function get_summary_stats(simulated_obs, obs)
 
-    num_replications = size(simualted_obs,2)
+    num_replications = size(simulated_obs,2)
     stats_mat = zeros(num_replications,5)
 
-    stats_mat[:,1] = mean(simualted_obs, dims=1)
-    stats_mat[:,2] = std(simualted_obs, dims=1)
-    stats_mat[:,3] = mapslices(normal_kurtosis, simualted_obs, dims=1)
+    stats_mat[:,1] = mean(simulated_obs, dims=1)
+    stats_mat[:,2] = std(simulated_obs, dims=1)
+    stats_mat[:,3] = mapslices(normal_kurtosis, simulated_obs, dims=1)
 
     ks_test_stat(x) = ks_test(obs, x)
-    stats_mat[:,4] = mapslices(ks_test_stat, simualted_obs, dims=1)
-    stats_mat[:,5] = mapslices(generalized_hurts_exp, simualted_obs,
+    stats_mat[:,4] = mapslices(ks_test_stat, simulated_obs, dims=1)
+    stats_mat[:,5] = mapslices(generalized_hurts_exp, simulated_obs,
         dims=1)
     return stats_mat
 end
