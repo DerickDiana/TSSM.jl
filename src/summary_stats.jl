@@ -7,6 +7,7 @@ function ks_test(a,b)
     return maximum(abs.(ecdf_a(all_x) .- ecdf_b(all_x)))
 end
 
+acf_lag_first(x) = autocor(x, [1])[1]
 
 function generalized_hurts_exp(obs)
     q = 1
@@ -59,7 +60,7 @@ end
 function get_summary_stats(simulated_obs, obs)
 
     num_replications = size(simulated_obs,2)
-    stats_mat = zeros(num_replications,5)
+    stats_mat = zeros(num_replications,6)
 
     stats_mat[:,1] = mean(simulated_obs, dims=1)
     stats_mat[:,2] = std(simulated_obs, dims=1)
@@ -69,5 +70,6 @@ function get_summary_stats(simulated_obs, obs)
     stats_mat[:,4] = mapslices(ks_test_stat, simulated_obs, dims=1)
     stats_mat[:,5] = mapslices(generalized_hurts_exp, simulated_obs,
         dims=1)
+    stats_mat[:, 6] = mapslices(acf_lag_first, simulated_obs, dims=1)
     return stats_mat
 end

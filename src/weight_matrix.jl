@@ -36,12 +36,13 @@ function block_bootstrap_index(block_ind, n, b)
     return sample_ind
 end
 
+
 function select_moments(obs)
     sample_mean = mean(obs)
     sample_std = std(obs)
     sample_kurt = normal_kurtosis(obs)
     sample_ks_stat = 0.0
     sample_hurst = generalized_hurts_exp(obs)
-
+    sample_acf_lag1 = autocor(obs, [1])[1]
     return [sample_mean, sample_std, sample_kurt, sample_ks_stat, sample_hurst]
 end
