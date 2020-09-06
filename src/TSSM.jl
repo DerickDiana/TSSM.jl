@@ -6,6 +6,7 @@ import HypothesisTests.ksstats
 using LinearAlgebra
 using Random
 using Statistics
+using StatsBase
 
 include("weight_matrix.jl")
 include("summary_stats.jl")
