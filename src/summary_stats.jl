@@ -1,8 +1,7 @@
 normal_kurtosis(x) = kurtosis(x, false)
 
 function ks_test(a,b)
-    x = ApproximateTwoSampleKSTest(ksstats(a[2:end], b[2:end])...)
-    return sqrt(x.n_x*x.n_y/(x.n_x+x.n_y))*x.δ
+    return maximum(abs.(a[:,1] .- b[:, 1]))
 end
 
 
