@@ -1,33 +1,10 @@
 normal_kurtosis(x) = kurtosis(x, false)
 
-function empirical_cdf(X)
-    Xs = sort(X)
-    m = length(X)
-    r = zeros(m)
-    r0 = 0.0
-
-    i = 1
-    for x in Xs
-        while i <= m && x > Xs[i]
-            r[i] = r0
-            i += 1
-        end
-        r0 += 1
-        if i > m
-            break
-        end
-    end
-    while i <= m
-        r[i] = m
-        i += 1
-    end
-    return r / m
-end
-
 function ks_test(a,b)
-    ecdf_a = empirical_cdf(a[:, 1])
-    ecdf_b = empirical_cdf(b[:, 1])
-    return maximum(abs.(ecdf_a .- ecdf_b))
+    ecdf_a = ecdf(a[:, 1])
+    ecdf_b = ecdf(b[:, 1])
+    all_x = vcat(a[:,1],b[:,1])
+    return maximum(abs.(ecdf_a(all_x) .- ecdf_b(all_x)))
 end
 
 
